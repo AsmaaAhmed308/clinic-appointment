@@ -1,0 +1,41 @@
+<form [formGroup]="form" class="form-grid">
+  <mat-form-field appearance="outline">
+    <mat-label>Doctor</mat-label>
+    <mat-select formControlName="doctorId" placeholder="Select a doctor">
+      @for (doctor of doctors; track doctor.id) {
+        <mat-option [value]="doctor.id">{{ doctor.name }}</mat-option>
+      }
+    </mat-select>
+    @if (form.controls.doctorId.hasError('required')) {
+      <mat-error>Doctor is required.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Appointment Date</mat-label>
+    <input matInput type="date" formControlName="appointmentDate" />
+    @if (form.controls.appointmentDate.hasError('required')) {
+      <mat-error>Appointment date is required.</mat-error>
+    }
+  </mat-form-field>
+</form>
+
+@if (doctorsLoading) {
+  <p class="field-note">Loading doctors...</p>
+} @else if (doctorsError) {
+  <p class="field-note field-note--warning">{{ doctorsError }}</p>
+}
+
+<p class="field-note field-note--info">Visit duration: {{ visitDurationMinutes }} minutes.</p>
+
+@if (slotsError) {
+  <p class="field-note field-note--warning">{{ slotsError }}</p>
+}
+
+<app-available-slots
+  [doctorSelected]="form.controls.doctorId.valid"
+  [dateSelected]="form.controls.appointmentDate.valid"
+  [loading]="slotsLoading"
+  [slots]="slots"
+  (selectedSlotChange)="selectedSlotChange.emit($event)"
+/>

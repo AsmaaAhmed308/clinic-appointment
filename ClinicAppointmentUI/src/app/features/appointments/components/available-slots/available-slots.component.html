@@ -1,0 +1,27 @@
+<section class="slots" aria-label="Available time slots">
+  <h3 class="section-title">Available Time Slots</h3>
+
+  @if (!doctorSelected() || !dateSelected()) {
+    <p class="field-note">Select a doctor and a date to load available time slots.</p>
+  } @else if (loading()) {
+    <p class="field-note">Loading available time slots...</p>
+  } @else if (slots().length === 0) {
+    <p class="field-note">No available time slots.</p>
+  } @else {
+    <div class="slot-list" role="group" aria-label="Available time slots">
+      @for (slot of slots(); track slot) {
+        <button
+          type="button"
+          mat-stroked-button
+          class="slot-button"
+          [class.slot-button--selected]="selectedSlot() === slot"
+          [color]="selectedSlot() === slot ? 'primary' : undefined"
+          [attr.aria-pressed]="selectedSlot() === slot"
+          (click)="selectSlot(slot)"
+        >
+          {{ displayTime(slot) }}
+        </button>
+      }
+    </div>
+  }
+</section>

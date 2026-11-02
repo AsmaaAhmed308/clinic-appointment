@@ -1,0 +1,49 @@
+<section class="page-card">
+  <header class="page-header">
+    <div class="page-header-copy">
+      <h1>New Appointment</h1>
+      <p class="page-subtitle">Enter patient details, choose a doctor and date, then select an available time slot.</p>
+    </div>
+  </header>
+
+  @if (saveError(); as message) {
+    <app-error-state [message]="message" />
+  }
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Patient Information</h2>
+        <p class="section-subtitle">Basic details used to identify the patient for this visit.</p>
+      </div>
+    </div>
+    <app-patient-information-form (formValidChange)="onPatientFormValidChange($event)" />
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Appointment Information</h2>
+        <p class="section-subtitle">Select the doctor, visit date, and an open time slot.</p>
+      </div>
+    </div>
+    <app-appointment-information-form
+      (selectedSlotChange)="onSlotSelected($event)"
+      (formValidChange)="onAppointmentFormValidChange($event)"
+    />
+  </section>
+
+  <div class="form-actions">
+    <p class="hint form-actions-hint">Select one available time slot before confirming the appointment.</p>
+    <a mat-stroked-button routerLink="/appointments">Cancel</a>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="!canConfirm()"
+      (click)="confirmAppointment()"
+    >
+      {{ saving() ? 'Saving...' : 'Confirm appointment' }}
+    </button>
+  </div>
+</section>

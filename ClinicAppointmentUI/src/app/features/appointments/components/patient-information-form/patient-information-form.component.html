@@ -1,0 +1,48 @@
+<form [formGroup]="form" class="form-grid">
+  <mat-form-field appearance="outline">
+    <mat-label>Patient Name</mat-label>
+    <input matInput formControlName="patientName" autocomplete="name" placeholder="Full name" />
+    @if (form.controls.patientName.hasError('required')) {
+      <mat-error>Patient name is required.</mat-error>
+    } @else if (form.controls.patientName.hasError('whitespace')) {
+      <mat-error>Patient name cannot be blank.</mat-error>
+    } @else if (form.controls.patientName.hasError('maxlength')) {
+      <mat-error>Patient name must be 200 characters or fewer.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Birth Date</mat-label>
+    <input matInput type="date" formControlName="birthDate" autocomplete="bday" />
+    @if (form.controls.birthDate.hasError('required')) {
+      <mat-error>Birth date is required.</mat-error>
+    } @else if (form.controls.birthDate.hasError('dateFormat')) {
+      <mat-error>Birth date format is invalid.</mat-error>
+    } @else if (form.controls.birthDate.hasError('futureDate')) {
+      <mat-error>Birth date cannot be in the future.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Contact Info</mat-label>
+    <input
+      matInput
+      formControlName="contactInfo"
+      autocomplete="tel"
+      placeholder="Phone or email"
+    />
+    @if (form.controls.contactInfo.hasError('maxlength')) {
+      <mat-error>Contact info must be 200 characters or fewer.</mat-error>
+    } @else if (form.controls.contactInfo.hasError('contactFormat')) {
+      <mat-error>Enter a valid phone number or email.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Gender</mat-label>
+    <input matInput formControlName="gender" maxlength="20" placeholder="Optional" />
+    @if (form.controls.gender.hasError('maxlength')) {
+      <mat-error>Gender must be 20 characters or fewer.</mat-error>
+    }
+  </mat-form-field>
+</form>

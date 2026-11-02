@@ -1,0 +1,20 @@
+<section class="page-card">
+  <header class="page-header">
+    <div class="page-header-copy">
+      <h1>Appointments</h1>
+      <p class="page-subtitle">Review scheduled visits and book new appointments for patients.</p>
+    </div>
+    <div class="page-header-actions">
+      <a mat-flat-button color="primary" routerLink="/appointments/new">
+        <mat-icon>add</mat-icon>
+        New Appointment
+      </a>
+    </div>
+  </header>
+
+  <app-appointments-grid
+    [appointments]="appointments"
+    [loading]="loading"
+    [errorMessage]="loadError?.message ?? null"
+  />
+</section>

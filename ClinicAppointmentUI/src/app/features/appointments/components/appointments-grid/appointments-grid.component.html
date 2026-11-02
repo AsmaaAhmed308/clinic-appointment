@@ -1,0 +1,67 @@
+@if (loading()) {
+  <app-loading-state message="Loading appointments..." />
+} @else if (errorMessage()) {
+  <app-error-state [message]="errorMessage() ?? 'The appointments could not be loaded.'" />
+} @else {
+  <div class="table-wrap">
+    <table mat-table [dataSource]="appointments()" class="appointments-table" aria-label="Appointments">
+      <ng-container matColumnDef="appointmentId">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let row" class="cell-muted">{{ row.appointmentId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="patientName">
+        <th mat-header-cell *matHeaderCellDef>Patient</th>
+        <td mat-cell *matCellDef="let row" class="cell-emphasis">{{ row.patientName | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="patientBirthDate">
+        <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.patientBirthDate | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="contactInfo">
+        <th mat-header-cell *matHeaderCellDef>Contact</th>
+        <td mat-cell *matCellDef="let row">{{ row.contactInfo | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef>Gender</th>
+        <td mat-cell *matCellDef="let row">{{ row.gender | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="doctorName">
+        <th mat-header-cell *matHeaderCellDef>Doctor</th>
+        <td mat-cell *matCellDef="let row" class="cell-emphasis">{{ row.doctorName | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="appointmentDate">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.appointmentDate | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="startTime">
+        <th mat-header-cell *matHeaderCellDef>Time</th>
+        <td mat-cell *matCellDef="let row">{{ row.startTime | displayValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="durationMinutes">
+        <th mat-header-cell *matHeaderCellDef>Duration</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="duration-chip">{{ row.durationMinutes }} min</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          <app-empty-state
+            title="No appointments yet"
+            message="Appointments created for patients will appear in this table."
+          />
+        </td>
+      </tr>
+    </table>
+  </div>
+}

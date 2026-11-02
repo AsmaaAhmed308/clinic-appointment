@@ -1,0 +1,22 @@
+<div class="app-shell">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <mat-icon>local_hospital</mat-icon>
+      </span>
+      <span class="brand-text">
+        <span class="brand-title">{{ title }}</span>
+        <span class="brand-subtitle">Clinic reception desk</span>
+      </span>
+    </div>
+    <span class="spacer"></span>
+    <span class="role-chip">
+      <mat-icon>badge</mat-icon>
+      <span>Secretary</span>
+    </span>
+  </mat-toolbar>
+
+  <main class="app-content">
+    <router-outlet />
+  </main>
+</div>
